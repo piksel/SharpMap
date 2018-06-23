@@ -67,7 +67,7 @@ namespace UnitTests.Serialization
         }
 
 
-
+        /*
         [Test, Description("MapQuest base map, OSM of Aurich, randomly styled")]
         public void TestMap2()
         {
@@ -116,6 +116,7 @@ namespace UnitTests.Serialization
 
             TestMaps("Test2", m, mD);
         }
+        */
 
         private static ICoordinateTransformation Wgs84ToWebMercator
         {

@@ -50,8 +50,10 @@ namespace WPFSamples
             e.Handled = true;
         }
 
+        
         private void BgMapQuest_Click(object sender, RoutedEventArgs e)
         {
+            /*
             WpfMap.BackgroundLayer = new SharpMap.Layers.TileAsyncLayer(
               BruTile.Predefined.KnownTileSources.Create(
                 BruTile.Predefined.KnownTileSource.MapQuestAerial), "MapQuest");
@@ -63,8 +65,10 @@ namespace WPFSamples
             BgMapQuest.IsChecked = true;
 
             WpfMap.ZoomToExtents();
+            */
             e.Handled = true;
         }
+        
 
         private void AddShapeLayer_OnClick(object sender, RoutedEventArgs e)
         {
