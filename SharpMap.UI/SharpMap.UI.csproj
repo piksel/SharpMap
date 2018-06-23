@@ -1,21 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD1CC1DB-4BF9-4C88-A100-733D84795F3A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>net45</TargetFramework>
     <RootNamespace>SharpMap</RootNamespace>
-    <AssemblyName>SharpMap.UI</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <Version>1.2.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,100 +34,74 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NetStandard2|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\NetStandard2\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UseMapBox</DefineConstants>
+    <DocumentationFile>bin\Debug\SharpMap.UI.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Aktivieren Sie die Wiederherstellung von NuGet-Paketen, um die fehlende Datei herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="GeoAPI, Version=1.7.4.0, Culture=neutral, PublicKeyToken=a1a0da7def465678, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoAPI.1.7.4\lib\net40-client\GeoAPI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NetTopologySuite, Version=1.14.0.0, Culture=neutral, PublicKeyToken=f580a05016ebada1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetTopologySuite.1.14\lib\net40-client\NetTopologySuite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PowerCollections, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2573bf8a1bdddcd5, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetTopologySuite.1.14\lib\net40-client\PowerCollections.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ProjNet, Version=1.3.2.0, Culture=neutral, PublicKeyToken=a1f5bdcd9c6f5740, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProjNET4GeoAPI.1.3.2-pre1\lib\net40-client\ProjNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net40\System.Data.SQLite.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\SharpMap\SharpMap.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\ImageGenerator\LayerListImageGenerator.cs" />
-    <Compile Include="Forms\MapBox.cs">
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="Common.Logging.Core" Version="3.4.1" />
+    <PackageReference Include="GeoAPI" Version="1.7.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
+    <PackageReference Include="NetTopologySuite" Version="1.14" />
+    <PackageReference Include="ProjNET4GeoAPI" Version="1.3.2-pre1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.94.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Forms\MapBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\MapImage.cs">
+    <Compile Update="Forms\MapImage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\MiniMapControl.cs">
+    <Compile Update="Forms\MiniMapControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ImageGenerator\IMapBoxImageGenerator.cs" />
-    <Compile Include="Forms\ImageGenerator\LegacyMapImageRenderer.cs" />
-    <Compile Include="Forms\ToolBar\MapDigitizeGeometriesToolStrip.cs">
+    <Compile Update="Forms\ToolBar\MapDigitizeGeometriesToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ToolBar\MapQueryToolStrip.cs">
+    <Compile Update="Forms\ToolBar\MapQueryToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ToolBar\MapToolstrip.cs">
+    <Compile Update="Forms\ToolBar\MapToolstrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ToolBar\MapVariableLayerToolStrip.cs">
+    <Compile Update="Forms\ToolBar\MapVariableLayerToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\ToolBar\MapZoomToolStrip.cs">
+    <Compile Update="Forms\ToolBar\MapZoomToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\Tools\FeatureEditorTool.cs" />
-    <Compile Include="Forms\Tools\IMapTool.cs" />
-    <Compile Include="Forms\Tools\MapTool.cs" />
-    <Compile Include="Forms\WktGeometryCreator.cs">
+    <Compile Update="Forms\WktGeometryCreator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WktGeometryCreator.Designer.cs">
+    <Compile Update="Forms\WktGeometryCreator.Designer.cs">
       <DependentUpon>WktGeometryCreator.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\SharedAssemblyVersion.cs">
+    <Compile Update="..\SharedAssemblyVersion.cs">
       <Link>Properties\SharedAssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Forms\ToolBar\MapQueryToolStrip.resx">
-      <DependentUpon>MapQueryToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ToolBar\MapZoomToolStrip.resx">
-      <DependentUpon>MapZoomToolStrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WktGeometryCreator.resx">
-      <DependentUpon>WktGeometryCreator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Forms\Icons\16x16\calculator.png" />
     <Content Include="Forms\Icons\16x16\check.png" />
     <Content Include="Forms\Icons\16x16\connect.png" />
@@ -561,27 +529,5 @@
     <Content Include="Forms\Icons\32x32\vector-grass.png" />
     <Content Include="Forms\Icons\32x32\vector.png" />
     <Content Include="Forms\Icons\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Aktivieren Sie die Wiederherstellung von NuGet-Paketen, um die fehlende Datei herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.94.0\build\net40\System.Data.SQLite.Core.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ItemGroup>
-    <ProjectReference Include="..\SharpMap\SharpMap.csproj">
-      <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>
-      <Name>SharpMap</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>
