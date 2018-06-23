@@ -13,7 +13,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -43,6 +43,16 @@
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NetStandard2|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\NetStandard2\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -52,9 +62,8 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="BruTile, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BruTile.0.18.1\lib\net40\BruTile.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BruTile, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.1.0.3\lib\portable-net45+win+WindowsPhoneApp81+Xamarin.iOS10+MonoAndroid10+MonoTouch10\BruTile.dll</HintPath>
     </Reference>
     <Reference Include="BruTile.Desktop, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BruTile.Desktop.0.18.1\lib\net40\BruTile.Desktop.dll</HintPath>
@@ -253,6 +262,14 @@
     <ProjectReference Include="..\SharpMap.Data.Providers.Kml\SharpMap.Data.Providers.Kml.csproj">
       <Project>{F9DA6934-413F-4744-84CE-923D901F60E6}</Project>
       <Name>SharpMap.Data.Providers.Kml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpMap.Data.Providers.MsSql\SharpMap.Data.Providers.MsSql.csproj">
+      <Project>{c339a6f2-f05b-47e6-837d-5f324cd9727c}</Project>
+      <Name>SharpMap.Data.Providers.MsSql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpMap.Data.Providers.OleDbPoint.cs\SharpMap.Data.Providers.OleDbPoint.csproj">
+      <Project>{51c46362-d0e5-4de0-af9d-510d7b2d7553}</Project>
+      <Name>SharpMap.Data.Providers.OleDbPoint</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpMap.Data.Providers.OracleSpatial\SharpMap.Data.Providers.OracleSpatial.csproj">
       <Project>{9BBED556-40D8-4DDC-AC11-7B03300E2A2E}</Project>
