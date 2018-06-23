@@ -775,7 +775,7 @@ namespace SharpMap.Utilities.SpatialIndexing
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw ex;
+                throw;
             }
         }
 

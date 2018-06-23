@@ -39,6 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using GeoAPI;
 using GeoAPI.Geometries;
 using NetTopologySuite.IO;
 
@@ -67,7 +68,7 @@ namespace SharpMap.Converters.WellKnownBinary
         /// <param name="bytes">byte[] containing the Well-known Binary representation.</param>
         /// <param name="factory">The factory to create the result geometry</param>
         /// <returns>A <see cref="GeoAPI.Geometries.IGeometry"/> bases on the supplied Well-known Binary representation.</returns>
-        public static IGeometry Parse(byte[] bytes, IGeometryFactory factory)
+        public static IGeometry Parse(byte[] bytes, IGeometryFactory factory = null)
         {            
             // Create a memory stream using the suppiled byte array.
             using (var ms = new MemoryStream(bytes))
@@ -76,7 +77,7 @@ namespace SharpMap.Converters.WellKnownBinary
                 using (var reader = new BinaryReader(ms))
                 {
                     // Call the main create function.
-                    return Parse(reader, factory);
+                    return Parse(reader);
                 }                
             }            
         }
@@ -87,7 +88,7 @@ namespace SharpMap.Converters.WellKnownBinary
         /// <param name="reader">A <see cref="System.IO.BinaryReader">BinaryReader</see> used to read the Well-known binary representation.</param>
         /// <param name="factory">The factory to create the result geometry</param>
         /// <returns>A <see cref="GeoAPI.Geometries.IGeometry"/> based on the Well-known binary representation.</returns>
-        public static IGeometry Parse(BinaryReader reader, IGeometryFactory factory)
+        public static IGeometry Parse(BinaryReader reader, IGeometryFactory factory = null)
         {
             WKBReader wkb = new WKBReader();
             return wkb.Read(reader.BaseStream);
@@ -256,7 +257,7 @@ namespace SharpMap.Converters.WellKnownBinary
             return factory.CreateMultiPolygon(polygons);
         }
 
-        private static IGeometry CreateWKBGeometryCollection(BinaryReader reader, WkbByteOrder byteOrder, IGeometryFactory factory)
+        private static IGeometry CreateWKBGeometryCollection(BinaryReader reader, WkbByteOrder byteOrder)
         {
             // The next byte in the array tells the number of geometries in this collection.
             var numGeometries = (int) ReadUInt32(reader, byteOrder);
@@ -268,8 +269,10 @@ namespace SharpMap.Converters.WellKnownBinary
             for (var i = 0; i < numGeometries; i++)
             {
                 // Call the main create function with the next geometry.
-                geometries[i] = Parse(reader, factory);
+                geometries[i] = Parse(reader);
             }
+
+            var factory = GeometryServiceProvider.Instance.CreateGeometryFactory();
 
             // Create and return the next geometry.
             return factory.CreateGeometryCollection(geometries);

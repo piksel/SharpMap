@@ -672,7 +672,7 @@ namespace SharpMap.Data.Providers
                                 var loadData = new object[numColumns];
                                 Array.Copy(data, 0, loadData, 0, numColumns);
                                 row = (FeatureDataRow)fdt.LoadDataRow(loadData, true);
-                                row.Geometry = GeometryFromWKB.Parse((byte[])data[numColumns], Factory);
+                                row.Geometry = GeometryFromWKB.Parse((byte[])data[numColumns]);
                             }
                             fdt.EndLoadData();
                             return row;
@@ -726,8 +726,7 @@ namespace SharpMap.Data.Providers
                         {
                             while (dr.Read())
                             {
-                                var geometry = GeometryFromWKB.Parse((byte[])dr.GetValue(0), Factory);
-                                return geometry;
+                                return GeometryFromWKB.Parse((byte[])dr.GetValue(0));
                             }
                         }
                     }
