@@ -10,26 +10,17 @@ namespace SharpMap.Rendering.Symbolizer
     public static class Utility
     {
         private static readonly Random RNG = new Random(998762);
-        private static readonly List<KnownColor> _knownColors;
 
         static Utility()
         {
-            //Get all known colors
-            _knownColors = new List<KnownColor>();
-            _knownColors.AddRange((KnownColor[])Enum.GetValues(typeof(KnownColor)));
-            
-            //We remove the system colors
-            _knownColors.RemoveAll(x => (int)x < 27);
         }
 
         /// <summary>
-        /// Method to <see cref="Color"/> to get a random known color
+        /// Method to get a random <see cref="Color"/> 
         /// </summary>
-        /// <returns>A random color form the <see cref="KnownColor"/> enumeration</returns>
+        /// <returns>A random color</returns>
         public static Color RandomKnownColor()
-        {
-            return Color.FromKnownColor(_knownColors[RNG.Next(0, _knownColors.Count - 1)]);
-        }
+        => Color.FromArgb(RNG.Next());
 
         /// <summary>
         /// Scales sizes to device units

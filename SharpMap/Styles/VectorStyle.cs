@@ -458,10 +458,7 @@ namespace SharpMap.Styles
         /// <returns></returns>
         public static Color CreateRandomKnownColor(int alpha = 255)
         {
-            var kc = (KnownColor)_rnd.Next(28, 168);
-            return alpha == 255 
-                ? Color.FromKnownColor(kc) 
-                : Color.FromArgb(alpha, Color.FromKnownColor(kc));
+            return Color.FromArgb(alpha, Utility.RandomKnownColor());
         }
     }
 }
